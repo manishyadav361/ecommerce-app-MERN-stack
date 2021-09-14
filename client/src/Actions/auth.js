@@ -18,3 +18,13 @@ export const signUp = (formData, history) => async (dispatch) => {
     console.log(error);
   }
 };
+export const updateUser = (updatedData, id, history) => async (dispatch) => {
+  try {
+    const { data } = await api.updateUser(updatedData, id);
+    console.log(data);
+    dispatch({ type: "AUTH", data });
+    history.push("/");
+  } catch (error) {
+    console.log(error);
+  }
+};

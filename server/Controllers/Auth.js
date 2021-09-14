@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import UserModel from "../Models/Auth.js";
+import mongoose from "mongoose";
 
 const secret = "test";
 
@@ -46,6 +47,27 @@ export const signUp = async (req, res) => {
     res.status(200).json({ result, token });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
+    console.log(error);
+  }
+};
+
+export const updateUser = async (req, res) => {
+  const { id } = req.params;
+
+  const { name, imageUrl } = req.body;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).json({ message: "User not found" });
+  try {
+    const updatedUser = { name, imageUrl, _id: id };
+    const result = await UserModel.findByIdAndUpdate(id, updatedUser, {
+      new: true,
+    });
+    const token = jwt.sign({ email: result.email, id: result._id }, secret, {
+      expiresIn: "1h",
+    });
+    res.status(200).json({ result, token });
+  } catch (error) {
+    res.status(500).json({ message: "something went wrong." });
     console.log(error);
   }
 };
