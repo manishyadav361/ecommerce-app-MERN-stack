@@ -1,9 +1,12 @@
-import { Button, Typography } from "@material-ui/core";
+import { Button, Icon, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { signIn, signUp } from "../../Actions/auth";
 import "./styles.css";
+import GoogleLogin from "react-google-login";
+import googleLogo from "../../images/googleLogo.png";
+import FileBase from "react-file-base64";
 
 function Auth() {
   const initialState = {
@@ -12,6 +15,7 @@ function Auth() {
     email: "",
     password: "",
     confirmpassword: "",
+    imageUrl: "",
   };
   const dispatch = useDispatch();
   const history = useHistory();
@@ -34,6 +38,22 @@ function Auth() {
     } else {
       dispatch(signIn(formData, history));
     }
+  };
+
+  const googleSuccess = async (res) => {
+    const result = res?.profileObj;
+    const token = res?.tokenId;
+    try {
+      dispatch({ type: "AUTH", data: { result, token } });
+      history.push("/");
+    } catch (err) {
+      console.log(err);
+    }
+    console.log(res);
+  };
+
+  const googleFailure = () => {
+    alert("Google Sign In was unsuccessful. Try again later");
   };
 
   return (
@@ -83,6 +103,17 @@ function Auth() {
           />
         )}
 
+        {signup && (
+          <FileBase
+            type="file"
+            value={formData.imageUrl}
+            multiple={false}
+            onDone={({ base64 }) =>
+              setFormData({ ...formData, imageUrl: base64 })
+            }
+          />
+        )}
+
         {signup ? (
           <Button
             color="primary"
@@ -105,6 +136,30 @@ function Auth() {
             Sign In
           </Button>
         )}
+
+        <GoogleLogin
+          buttonText="Google"
+          clientId="613407718740-qr15ihkqqgnooi0lf8mkkrt3f9ljatis.apps.googleusercontent.com"
+          render={(renderProps) => (
+            <>
+              <Button
+                color="primary"
+                fullWidth
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+                startIcon={<Icon />}
+                variant="outlined"
+              >
+                <img src={googleLogo} alt={googleLogo} className="google-img" />
+                Google
+              </Button>
+            </>
+          )}
+          cookiePolicy={"single_host_origin"}
+          onSuccess={googleSuccess}
+          onfailure={googleFailure}
+          autoLoad={false}
+        />
         {signup ? (
           <Typography
             variant="h6"

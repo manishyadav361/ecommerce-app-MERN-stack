@@ -5,7 +5,6 @@
   justify-content: space-between;
   padding: 15px;
   box-shadow: 0px 0.5px 10px rgba(0, 0, 0, 0.3);
-  position: fixed;
 }
 .nav-logo {
   font-weight: 600 !important;
@@ -30,15 +29,34 @@
   display: flex;
   align-items: center;
 }
-.submit-btn {
-  margin-left: 10px !important;
-}
+
 .username {
   text-transform: capitalize !important;
   font-weight: 500;
+  margin: 0px 15px !important;
+}
+.nav-avatar {
+  width: 30px !important;
+  height: 30px !important;
+  cursor: pointer;
+}
+.google-img {
+  width: 24px;
+  margin-right: 10px;
 }
 @media screen and (max-width: 600px) {
-  .username {
-    display: none;
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .nav-center {
+    margin: 10px 0px;
+  }
+  .nav-center > input {
+    flex: 1;
+  }
+  .nav-right {
+    padding: 5px 0px;
   }
 }

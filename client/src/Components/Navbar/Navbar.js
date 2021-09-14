@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Button, Typography } from "@material-ui/core";
+import { Avatar, Button, Typography } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import "./styles.css";
 import { useHistory, useLocation } from "react-router-dom";
@@ -13,7 +13,6 @@ function Navbar() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
   const handleLogout = (e) => {
-    e.preventDefault();
     if (user?.result) {
       dispatch({ type: "LOGOUT" });
       history.push("/");
@@ -23,7 +22,7 @@ function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
-    const token = user.token;
+    const token = user?.token;
     if (token) {
       const decodedToken = decode(token);
       if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
@@ -43,6 +42,13 @@ function Navbar() {
         <SearchIcon color="primary" />
       </div>
       <div className="nav-right">
+        {user && (
+          <Avatar
+            src={user?.result?.imageUrl}
+            className="nav-avatar"
+            onClick={() => history.push("/profile")}
+          ></Avatar>
+        )}
         <Typography color="primary" className="username">
           {user?.result?.name}
         </Typography>
