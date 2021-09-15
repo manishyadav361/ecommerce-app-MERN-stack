@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 import authRoutes from "./Routes/Auth.js";
+import productsRoute from "./Routes/Products.js";
 import dotenv from "dotenv";
 const app = express();
 dotenv.config();
@@ -11,6 +12,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 app.use("/auth", authRoutes);
+app.use("/products", productsRoute);
 mongoose
   .connect(process.env.CONNECTION_URL, {
     useNewUrlParser: true,
