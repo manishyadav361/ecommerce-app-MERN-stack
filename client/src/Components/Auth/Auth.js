@@ -49,7 +49,6 @@ function Auth() {
     } catch (err) {
       console.log(err);
     }
-    console.log(res);
   };
 
   const googleFailure = () => {
@@ -139,7 +138,7 @@ function Auth() {
 
         <GoogleLogin
           buttonText="Google"
-          clientId={process.env.O_AUTH_CLIENT_ID}
+          clientId="613407718740-qr15ihkqqgnooi0lf8mkkrt3f9ljatis.apps.googleusercontent.com"
           render={(renderProps) => (
             <>
               <Button

@@ -38,11 +38,15 @@ function Profile() {
           className="profile-avatar"
           src={user?.result?.imageUrl}
         ></Avatar>
-        <EditIcon
-          className="edit-icon"
-          color="primary"
-          onClick={() => (isCustomAuth ? setUpdate(!update) : setUpdate(false))}
-        />
+        {isCustomAuth && (
+          <EditIcon
+            className="edit-icon"
+            color="primary"
+            onClick={() =>
+              isCustomAuth ? setUpdate(!update) : setUpdate(false)
+            }
+          />
+        )}
       </div>
       <form action="">
         <input

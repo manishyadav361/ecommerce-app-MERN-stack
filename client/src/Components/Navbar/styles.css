@@ -6,10 +6,47 @@
   padding: 15px;
   box-shadow: 0px 0.5px 10px rgba(0, 0, 0, 0.3);
 }
+.header {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  height: 100vh;
+  top: 0%;
+}
+.nav-links {
+  width: 180px;
+  height: 100vh;
+  background-color: inherit;
+  z-index: 100;
+  transition: all 0.1s ease-in-out;
+  box-shadow: 0.5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+.hide {
+  transform: translateX(-72%);
+}
+.link {
+  width: 100%;
+  display: flex;
+  align-items: center !important;
+  padding: 15px;
+  /* background-color: rgba(189, 188, 188, 0.2); */
+  justify-content: flex-end;
+  border-bottom: 0.3px solid white;
+  cursor: pointer;
+  overflow: hidden;
+}
+.link:hover {
+  background-color: whitesmoke;
+}
+.link > .text {
+  margin-right: 12px !important;
+  margin-left: auto !important;
+}
 .nav-logo {
   font-weight: 600 !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif !important;
+  margin-left: 10px !important;
 }
 .navbar > .nav-center {
   display: flex;
@@ -24,7 +61,10 @@
   background-color: transparent;
   flex: 1;
 }
-
+.nav-left {
+  display: flex;
+  align-items: center;
+}
 .navbar > .nav-right {
   display: flex;
   align-items: center;
@@ -53,6 +93,10 @@
   width: 24px;
   margin-right: 10px;
 }
+.menu {
+  transition: all 2s ease-out;
+  cursor: pointer;
+}
 @media screen and (max-width: 600px) {
   .navbar {
     display: flex;
@@ -67,5 +111,16 @@
   }
   .nav-right {
     padding: 5px 0px;
+  }
+  .nav-left {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .menu {
+    position: absolute;
+    left: 3%;
   }
 }
