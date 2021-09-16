@@ -107,7 +107,13 @@ function Navbar() {
           </Typography>
           <HomeIcon color="primary" />
         </span>
-        <span className="link" onClick={() => history.push("/profile")}>
+        <span
+          className="link"
+          onClick={() => {
+            history.push("/admin");
+            setToggle(false);
+          }}
+        >
           <Typography color="primary" className="text">
             PROFILE
           </Typography>

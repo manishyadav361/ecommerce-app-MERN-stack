@@ -7,8 +7,8 @@
   box-shadow: 0px 0.5px 10px rgba(0, 0, 0, 0.3);
 }
 .header {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   position: sticky;
   height: 100vh;
   top: 0%;
@@ -16,13 +16,15 @@
 .nav-links {
   width: 180px;
   height: 100vh;
-  background-color: inherit;
+  position: absolute;
+  top: 75px;
+  background-color: white;
   z-index: 100;
   transition: all 0.1s ease-in-out;
   box-shadow: 0.5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 .hide {
-  transform: translateX(-72%);
+  transform: translateX(-100%);
 }
 .link {
   width: 100%;
@@ -122,5 +124,9 @@
   .menu {
     position: absolute;
     left: 3%;
+  }
+  .nav-links {
+    padding: 2px;
+    top: 30%;
   }
 }

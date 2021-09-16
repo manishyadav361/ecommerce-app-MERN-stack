@@ -10,6 +10,7 @@ const productsSchema = mongoose.Schema({
   imageUrl: { type: String, required: true },
   specification: { type: String },
   discountedPrice: { type: Number },
+  shippingCharges: { type: String },
   freeShipping: { type: Boolean },
   createdAt: { type: Date, default: new Date() },
   creator: { type: String, required: true },

@@ -10,18 +10,38 @@ export const getAllProducts = async (req, res) => {
 };
 
 export const createProduct = async (req, res) => {
-  const product = req.body;
-  const newProduct = new ProductsModel({
-    ...product,
-    createdAt: new Date().toISOString(),
-    creator: product.userId,
-  });
+  const {
+    title,
+    category,
+    inStock,
+    freeShipping,
+    discountedPrice,
+    price,
+    specification,
+
+    keyword,
+    imageUrl,
+    shippingCharges,
+  } = req.body.productInfo;
+
   try {
-    await newProduct.save();
+    const newProduct = await ProductsModel.create({
+      category,
+      inStock,
+      freeShipping,
+      discountedPrice,
+      price,
+      specification,
+      title,
+      keyword,
+      imageUrl,
+      shippingCharges,
+      createdAt: new Date().toISOString(),
+      creator: req.body.id,
+    });
     res.status(201).json(newProduct);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong." });
-    console.log(error);
   }
 };
 

@@ -1,0 +1,26 @@
+.admin-products {
+  width: 100%;
+  height: 100vh;
+  background: rgb(185, 185, 25);
+  position: absolute;
+  top: 12%;
+  background: white;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  /* z-index: 500; */
+}
+.add-product {
+  border: 1px dotted grey;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.add-product > .admin-add {
+  font-size: 80px;
+  font-weight: 500 !important;
+  color: grey;
+}
