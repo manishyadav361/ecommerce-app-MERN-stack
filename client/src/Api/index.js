@@ -18,3 +18,5 @@ export const updateUser = (updatedData, id) =>
 export const getAllProducts = () => API.get("/products");
 export const createProduct = (productInfo, id) =>
   API.post("/products", { productInfo, id });
+export const updateItem = (productInfo, id) =>
+  API.patch(`/products/${id}`, productInfo);

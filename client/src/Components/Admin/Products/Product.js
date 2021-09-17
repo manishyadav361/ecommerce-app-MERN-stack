@@ -1,10 +1,19 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
-function Product({ product }) {
+function Product({ product, productId, setProductId }) {
   const [toggle, setToggle] = useState(false);
+  const history = useHistory();
+
+  const navigateProduct = () => {
+    setProductId(product?._id);
+
+    history.push(`/admin/products/create/${product?._id}`);
+  };
   return (
     <div
       className="admin-product"
+      onClick={navigateProduct}
       onMouseLeave={() => {
         setToggle(!toggle);
       }}

@@ -22,7 +22,7 @@ function Navbar() {
   const handleLogout = (e) => {
     if (user?.result) {
       dispatch({ type: "LOGOUT" });
-      history.push("/");
+      history.push("/auth");
       setUser(null);
     }
   };

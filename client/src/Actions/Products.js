@@ -17,3 +17,13 @@ export const createProduct = (productInfo, id, history) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const updateItem = (productInfo, id, history) => async (dispatch) => {
+  try {
+    const { data } = await api.updateItem(productInfo, id);
+    dispatch({ type: "UPDATE_PRODUCT", payload: data });
+    history.push("/admin/products");
+  } catch (error) {
+    console.log(error);
+  }
+};

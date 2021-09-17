@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Navbar from "./Components/Navbar/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -13,16 +13,20 @@ import ProductInfo from "./Components/Admin/Products/ProductInfo";
 
 function App() {
   const dispatch = useDispatch();
+  const [productId, setProductId] = useState("");
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
+
   return (
     <Router>
       <div className="app">
         <Switch>
           <Route path="/" exact>
             <Navbar />
-            <Products />
+            <Products loading={loading} setLoading={setLoading} />
           </Route>
           <Route path="/auth" exact>
             <Auth />
@@ -34,10 +38,10 @@ function App() {
             <Admin />
           </Route>
           <Route path="/admin/products" exact>
-            <AdminProducts />
+            <AdminProducts productId={productId} setProductId={setProductId} />
           </Route>
           <Route path="/admin/products/create">
-            <ProductInfo />
+            <ProductInfo productId={productId} setProductId={setProductId} />
           </Route>
         </Switch>
       </div>

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import AddIcon from "@material-ui/icons/Add";
 import { useHistory } from "react-router-dom";
 import Header from "../Header/Header";
 import { useSelector } from "react-redux";
 import Product from "./Product";
-function Products() {
+function Products({ productId, setProductId }) {
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem("profile"));
   const isCustomAuth = user?.token?.length < 500;
@@ -16,7 +16,7 @@ function Products() {
         (isCustomAuth ? user?.result?._id : user?.result?.googleId)
     )
   );
-  console.log(products);
+
   return (
     <>
       <Header />
@@ -29,7 +29,12 @@ function Products() {
         </div>
         <div className="products-admin">
           {products.map((product) => (
-            <Product product={product} key={product._id} />
+            <Product
+              productId={productId}
+              setProductId={setProductId}
+              product={product}
+              key={product._id}
+            />
           ))}
         </div>
       </div>

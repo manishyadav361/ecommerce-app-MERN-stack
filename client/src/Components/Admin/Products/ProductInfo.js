@@ -1,13 +1,15 @@
 import "./productInfo.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import ImageIcon from "@material-ui/icons/Image";
 import { useDispatch } from "react-redux";
-import { createProduct } from "../../../Actions/Products";
+import { createProduct, updateItem } from "../../../Actions/Products";
 import { useHistory } from "react-router-dom";
 import Header from "../Header/Header";
-function ProductInfo() {
+import { useSelector } from "react-redux";
+import loadingGif from "../../../images/loadingGif.gif";
+function ProductInfo({ productId, setProductId }) {
   const initialState = {
     title: "",
     category: "",
@@ -21,30 +23,54 @@ function ProductInfo() {
     imageUrl: "",
     shippingCharges: 0,
   };
+  let [loading, setLoading] = useState(false);
+
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem("profile"));
   const id = user?.result?._id || user?.result?.googleId;
   const dispatch = useDispatch();
+
   const [product, setProduct] = useState(initialState);
+  const updateProduct = useSelector((state) =>
+    productId
+      ? state?.products.find((product) => product?._id === productId)
+      : null
+  );
+
+  useEffect(() => {
+    if (productId) {
+      setProduct(updateProduct);
+    }
+  }, [updateProduct]);
+
   const handleChange = (e) => {
-    setProduct({ ...product, [e.target.name]: e.target.value.toLowerCase() });
+    setProduct({ ...product, [e.target.name]: e.target.value });
   };
   const clearInput = () => {
     setProduct(initialState);
   };
   const dispatchProduct = () => {
-    if (user) {
+    setLoading(!loading);
+    if (user && !updateProduct) {
       dispatch(createProduct(product, id, history));
       clearInput();
     } else {
-      alert("Login to your account");
-      history.push("/auth");
+      dispatch(updateItem(product, productId, history));
+      setLoading(!loading);
+      setProductId(null);
+      clearInput();
     }
   };
 
   return (
-    <>
+    <div className="admin-form">
+      {loading && (
+        <div className="loading">
+          <img src={loadingGif} alt="" />
+        </div>
+      )}
       <Header />
+
       <form className="product-info">
         <div className="info-left">
           <h4>Category</h4>
@@ -61,6 +87,7 @@ function ProductInfo() {
             type="text"
             name="title"
             placeholder="Title"
+            value={product?.title}
             required
             onChange={handleChange}
           />
@@ -158,17 +185,27 @@ function ProductInfo() {
             >
               Cancel
             </Button>
-            <Button
-              variant="contained"
-              className="add-btn"
-              onClick={dispatchProduct}
-            >
-              Add
-            </Button>
+            {updateProduct ? (
+              <Button
+                variant="contained"
+                className="add-btn"
+                onClick={dispatchProduct}
+              >
+                Update
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                className="add-btn"
+                onClick={dispatchProduct}
+              >
+                Add
+              </Button>
+            )}
           </div>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 

@@ -71,6 +71,21 @@
   background: rgb(6, 151, 6) !important;
   color: white !important;
 }
+.admin-form {
+  /* position: relative; */
+}
+.loading {
+  z-index: 1000;
+  position: absolute;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 @media screen and (max-width: 600px) {
   .product-info {
     display: flex;
