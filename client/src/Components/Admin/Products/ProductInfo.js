@@ -136,7 +136,11 @@ function ProductInfo() {
         </div>
         <div className="info-right">
           <div className="image-container">
-            {product?.imageUrl ? <img src={product.imageUrl} /> : <ImageIcon />}
+            {product?.imageUrl ? (
+              <img src={product.imageUrl} alt="" />
+            ) : (
+              <ImageIcon />
+            )}
           </div>
           <FileBase
             type="file"

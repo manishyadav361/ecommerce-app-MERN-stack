@@ -16,7 +16,11 @@ function Product({ product }) {
         <b>₹{product.price}</b>
       </section>
       <section className="cart-btn">
-        <Button color="primary" variant="contained">
+        <Button
+          color="primary"
+          variant="contained"
+          className="main-product-btn"
+        >
           Add to cart
         </Button>
       </section>

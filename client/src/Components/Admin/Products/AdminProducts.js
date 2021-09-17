@@ -4,6 +4,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { useHistory } from "react-router-dom";
 import Header from "../Header/Header";
 import { useSelector } from "react-redux";
+import Product from "./Product";
 function Products() {
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -25,6 +26,11 @@ function Products() {
           onClick={() => history.push("/admin/products/create")}
         >
           <AddIcon className="admin-add" />
+        </div>
+        <div className="products-admin">
+          {products.map((product) => (
+            <Product product={product} key={product._id} />
+          ))}
         </div>
       </div>
     </>

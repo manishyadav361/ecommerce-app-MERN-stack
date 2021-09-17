@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Avatar, Button, IconButton, Typography } from "@material-ui/core";
+import { Avatar, Button, Typography } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import "./styles.css";
 import { useHistory, useLocation } from "react-router-dom";
@@ -27,7 +27,6 @@ function Navbar() {
     }
   };
   const location = useLocation();
-
   useEffect(() => {
     const token = user?.token;
     if (token) {

@@ -1,4 +1,4 @@
-export default (products = [], action) => {
+const productsReducer = (products = [], action) => {
   switch (action.type) {
     case "GET_ALL_PRODUCTS":
       return action.payload;
@@ -8,3 +8,5 @@ export default (products = [], action) => {
       return products;
   }
 };
+
+export default productsReducer;
