@@ -35,6 +35,7 @@ function Navbar() {
     }
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
+
   const handleToggle = () => {
     setToggle(!toggle);
   };
@@ -57,7 +58,12 @@ function Navbar() {
               onClick={handleToggle}
             />
           )}
-          <Typography variant="h6" color="primary" className="nav-logo">
+          <Typography
+            variant="h6"
+            color="primary"
+            className="nav-logo"
+            onClick={() => history.push("/")}
+          >
             MANIAC'S
           </Typography>
         </div>
@@ -100,42 +106,101 @@ function Navbar() {
         </div>
       </section>
       <section className={toggle ? "nav-links show" : "nav-links hide"}>
-        <span className="link" onClick={() => history.push("/")}>
+        <section className="sidebar-profile">
+          <Avatar
+            src={user?.result?.imageUrl}
+            className="nav-avatar"
+            onClick={() => history.push("/profile")}
+          ></Avatar>
+
+          <Typography color="primary" className="username">
+            {user?.result?.name}
+          </Typography>
+        </section>
+        <span
+          className="link"
+          onClick={() => {
+            history.push("/");
+            handleToggle();
+          }}
+        >
           <Typography color="primary" className="text">
-            HOME
+            Home
           </Typography>
           <HomeIcon color="primary" />
         </span>
         <span
           className="link"
           onClick={() => {
-            history.push("/admin");
-            setToggle(false);
+            handleToggle();
+            history.push("/products");
           }}
         >
           <Typography color="primary" className="text">
-            PROFILE
-          </Typography>
-          <PersonIcon color="primary" />
-        </span>
-        <span className="link" onClick={() => history.push("/products")}>
-          <Typography color="primary" className="text">
-            PRODUCT'S
+            Product's
           </Typography>
           <StorefrontIcon color="primary" />
         </span>
-        <span className="link" onClick={() => history.push("/cart")}>
+        <span
+          className="link"
+          onClick={() => {
+            handleToggle();
+
+            history.push("/cart");
+          }}
+        >
           <Typography color="primary" className="text">
-            CART
+            Cart
           </Typography>
           <ShoppingCartIcon color="primary" />
         </span>
-        <span className="link" onClick={() => history.push("/orders")}>
+        <span
+          className="link"
+          onClick={() => {
+            handleToggle();
+            history.push("/orders");
+          }}
+        >
           <Typography color="primary" className="text">
-            ORDER'S
+            Order's
           </Typography>
           <AssignmentIcon color="primary" />
         </span>
+        <span
+          className="link"
+          onClick={() => {
+            handleToggle();
+            history.push("/admin");
+          }}
+        >
+          <Typography color="primary" className="text">
+            Admin login
+          </Typography>
+          <PersonIcon color="primary" />
+        </span>
+        <div className="sidebar-profile">
+          {user ? (
+            <Button
+              color="primary"
+              variant="contained"
+              size="small"
+              onClick={handleLogout}
+              className="submit-btn"
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button
+              color="primary"
+              variant="contained"
+              size="small"
+              onClick={() => history.push("/auth")}
+              className="submit-btn"
+            >
+              Login
+            </Button>
+          )}
+        </div>
       </section>
     </header>
   );

@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import authRoutes from "./Routes/Auth.js";
 import productsRoute from "./Routes/Products.js";
+import cartRoute from "./Routes/Cart.js";
 import dotenv from "dotenv";
 const app = express();
 dotenv.config();
@@ -13,6 +14,7 @@ app.use(cors());
 
 app.use("/auth", authRoutes);
 app.use("/products", productsRoute);
+app.use("/cart", cartRoute);
 mongoose
   .connect(process.env.CONNECTION_URL, {
     useNewUrlParser: true,

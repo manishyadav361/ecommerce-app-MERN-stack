@@ -9,6 +9,15 @@ export const getAllProducts = async (req, res) => {
     console.log(error);
   }
 };
+export const getProduct = async (req, res) => {
+  try {
+    const product = await ProductsModel.findById(req.params.id);
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: "something went wrong." });
+    console.log(error);
+  }
+};
 
 export const createProduct = async (req, res) => {
   const {
@@ -85,4 +94,11 @@ export const updateProduct = async (req, res) => {
     console.log(error);
   }
 };
-export const deleteProduct = async (req, res) => {};
+export const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No product with id: ${id}`);
+
+  await ProductsModel.findByIdAndRemove(id);
+  res.status(200).json({ message: "deleted succesfully." });
+};

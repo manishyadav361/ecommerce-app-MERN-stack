@@ -1,23 +1,24 @@
 .main-product {
   width: 200px;
   margin: 10px 20px;
+  cursor: pointer;
 }
 .main-products {
-  width: 90%;
-  height: 100%;
+  width: 100%;
+  height: 100vh;
   margin: auto;
 }
 .products {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 90%;
   flex-wrap: wrap;
   margin: auto;
 }
 .image {
   width: 200px;
   height: 200px;
-  object-fit: contain;
+  overflow: hidden;
 }
 .image > img {
   width: 100%;
@@ -29,8 +30,9 @@
   justify-content: space-between;
 }
 .title p {
-  width: 80%;
-  white-space: wrap;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .price {
   width: 90%;
@@ -48,6 +50,17 @@
 .main-product-btn {
   width: 100% !important;
 }
+.loader {
+  position: absolute;
+  top: 0%;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  /* background-color: rgba(0, 0, 0, 0.2); */
+}
 
 @media screen and (max-width: 600px) {
   .products {
@@ -59,5 +72,9 @@
   }
   .main-product {
     margin: 10px 0px;
+  }
+  .loader {
+    width: 100%;
+    margin: 0px;
   }
 }

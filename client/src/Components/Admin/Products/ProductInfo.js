@@ -1,14 +1,20 @@
 import "./productInfo.css";
 import React, { useEffect, useState } from "react";
-import { Button } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import FileBase from "react-file-base64";
 import ImageIcon from "@material-ui/icons/Image";
 import { useDispatch } from "react-redux";
-import { createProduct, updateItem } from "../../../Actions/Products";
+import {
+  createProduct,
+  deleteItem,
+  updateItem,
+} from "../../../Actions/Products";
 import { useHistory } from "react-router-dom";
 import Header from "../Header/Header";
 import { useSelector } from "react-redux";
-import loadingGif from "../../../images/loadingGif.gif";
+import Loader from "react-loader-spinner";
+import DeleteIcon from "@material-ui/icons/Delete";
+
 function ProductInfo({ productId, setProductId }) {
   const initialState = {
     title: "",
@@ -40,8 +46,10 @@ function ProductInfo({ productId, setProductId }) {
   useEffect(() => {
     if (productId) {
       setProduct(updateProduct);
+    } else {
+      setProduct(initialState);
     }
-  }, [updateProduct]);
+  }, []);
 
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
@@ -61,12 +69,16 @@ function ProductInfo({ productId, setProductId }) {
       clearInput();
     }
   };
-
+  const deleteHandler = () => {
+    setLoading(!loading);
+    dispatch(deleteItem(productId, history));
+    setLoading(!loading);
+  };
   return (
     <div className="admin-form">
       {loading && (
         <div className="loading">
-          <img src={loadingGif} alt="" />
+          <Loader type="Oval" color="#00BFFF" height={80} width={80} />
         </div>
       )}
       <Header />
@@ -162,6 +174,13 @@ function ProductInfo({ productId, setProductId }) {
           </div>
         </div>
         <div className="info-right">
+          {productId && (
+            <div className="delete-admin-product">
+              <IconButton color="secondary" onClick={deleteHandler}>
+                <DeleteIcon color="secondary" />
+              </IconButton>
+            </div>
+          )}
           <div className="image-container">
             {product?.imageUrl ? (
               <img src={product.imageUrl} alt="" />
@@ -178,13 +197,15 @@ function ProductInfo({ productId, setProductId }) {
             }
           />
           <div className="btn">
-            <Button
-              variant="contained"
-              className="cancel-btn"
-              onClick={clearInput}
-            >
-              Cancel
-            </Button>
+            {!productId && (
+              <Button
+                variant="contained"
+                className="cancel-btn"
+                onClick={clearInput}
+              >
+                Cancel
+              </Button>
+            )}
             {updateProduct ? (
               <Button
                 variant="contained"

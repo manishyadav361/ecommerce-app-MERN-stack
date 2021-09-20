@@ -10,6 +10,8 @@ import { useDispatch } from "react-redux";
 import { getAllProducts } from "./Actions/Products";
 import AdminProducts from "./Components/Admin/Products/AdminProducts";
 import ProductInfo from "./Components/Admin/Products/ProductInfo";
+import ProductDetails from "./Components/ProductDetails/ProductDetails";
+import Header from "./Components/Admin/Header/Header";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,11 +28,25 @@ function App() {
         <Switch>
           <Route path="/" exact>
             <Navbar />
-            <Products loading={loading} setLoading={setLoading} />
+            <Products
+              productId={productId}
+              setProductId={setProductId}
+              loading={loading}
+              setLoading={setLoading}
+            />
           </Route>
+
           <Route path="/auth" exact>
             <Auth />
           </Route>
+          <Route
+            path="/product/:id"
+            exact
+            component={(props) => (
+              <ProductDetails match={props.match.params.id} />
+            )}
+          />
+
           <Route path="/profile" exact>
             <Profile />
           </Route>

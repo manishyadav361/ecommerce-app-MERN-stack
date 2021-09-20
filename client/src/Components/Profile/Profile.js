@@ -6,24 +6,34 @@ import EditIcon from "@material-ui/icons/Edit";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { updateUser } from "../../Actions/auth";
+import Loader from "react-loader-spinner";
+
 function Profile() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [update, setUpdate] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const user = JSON.parse(localStorage.getItem("profile"));
   const [updatedData, setUpdatedData] = useState({
     name: user?.result?.name,
-
     imageUrl: user?.result?.imageUrl,
   });
   const id = user?.result?._id;
   const updateProfile = () => {
+    setLoading(!loading);
     dispatch(updateUser(updatedData, id, history));
+    setLoading(!loading);
   };
   const isCustomAuth = user?.token?.length < 500;
 
   return (
     <div className="profile">
+      {loading && (
+        <div className="loader">
+          <Loader type="Oval" color="grey" height={60} width={60} />
+        </div>
+      )}
       <Typography
         variant="h5"
         color="primary"

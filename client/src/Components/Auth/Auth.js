@@ -7,7 +7,7 @@ import "./styles.css";
 import GoogleLogin from "react-google-login";
 import googleLogo from "../../images/googleLogo.png";
 import FileBase from "react-file-base64";
-
+import Loader from "react-loader-spinner";
 function Auth() {
   const initialState = {
     firstname: "",
@@ -19,6 +19,7 @@ function Auth() {
   };
   const dispatch = useDispatch();
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
   const [signup, setSignUp] = useState(false);
   const [formData, setFormData] = useState(initialState);
 
@@ -33,18 +34,24 @@ function Auth() {
 
   const handleAuth = (e) => {
     e.preventDefault();
+    setLoading(!loading);
     if (signup) {
       dispatch(signUp(formData, history));
+      setLoading(!loading);
     } else {
       dispatch(signIn(formData, history));
+      setLoading(!loading);
     }
   };
 
   const googleSuccess = async (res) => {
+    setLoading(!loading);
+
     const result = res?.profileObj;
     const token = res?.tokenId;
     try {
       dispatch({ type: "AUTH", data: { result, token } });
+      setLoading(!loading);
 
       history.push("/");
     } catch (err) {
@@ -58,6 +65,11 @@ function Auth() {
 
   return (
     <div className="auth">
+      {loading && (
+        <div className="loader">
+          <Loader type="Oval" color="grey" height={40} width={40} />
+        </div>
+      )}
       <form action="" onSubmit={handleAuth}>
         {signup && (
           <input

@@ -2,9 +2,17 @@ import React from "react";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import "./styles.css";
 import { Button } from "@material-ui/core";
-function Product({ product }) {
+import { Link, useHistory } from "react-router-dom";
+
+function Product({ product, setProductId }) {
+  const history = useHistory();
+  const productRoute = () => {
+    console.log(product._id);
+    history.push(`/product/${product._id}`);
+  };
+
   return (
-    <div className="main-product">
+    <div className="main-product" onClick={productRoute}>
       <section className="image">
         <img src={product?.imageUrl} alt="" />
       </section>
