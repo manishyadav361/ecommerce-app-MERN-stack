@@ -1,5 +1,5 @@
-![2021-09-21](https://user-images.githubusercontent.com/67056354/134169568-04b15933-714d-4601-acb1-10223925fa4d.png)
 
+![2021-09-21 (2)](https://user-images.githubusercontent.com/67056354/134169861-efeb4efb-a055-4481-8b21-b57ac59c9380.png)
 
 # Getting Started with Create React App
 
