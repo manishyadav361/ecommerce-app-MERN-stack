@@ -74,6 +74,7 @@
 .image-container > img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
 }
 .active {
   background: rgb(6, 151, 6) !important;

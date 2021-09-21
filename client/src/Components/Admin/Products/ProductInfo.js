@@ -9,7 +9,7 @@ import {
   deleteItem,
   updateItem,
 } from "../../../Actions/Products";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import { useSelector } from "react-redux";
 import Loader from "react-loader-spinner";
@@ -32,6 +32,7 @@ function ProductInfo({ productId, setProductId }) {
   let [loading, setLoading] = useState(false);
 
   const history = useHistory();
+  const location = useLocation();
   const user = JSON.parse(localStorage.getItem("profile"));
   const id = user?.result?._id || user?.result?.googleId;
   const dispatch = useDispatch();

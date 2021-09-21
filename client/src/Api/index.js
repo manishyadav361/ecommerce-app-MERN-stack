@@ -27,4 +27,9 @@ export const createProduct = (productInfo, id) =>
 export const updateItem = (productInfo, id) =>
   API.patch(`/products/${id}`, productInfo); // PATCH REQUEST FOR UPDATING EXISTING  PRODUCT
 
-export const deleteItem = (id) => API.delete(`products/${id}`); // DELETE REQUEST FOR DELETING A PRODUCT
+export const deleteItem = (id) => API.delete(`/products/${id}`); // DELETE REQUEST FOR DELETING A PRODUCT
+
+export const createCart = (productId, quantity, userId) =>
+  API.post("/cart", { productId, quantity, userId });
+
+export const getCart = (userId) => API.get(`/cart/${userId}`);

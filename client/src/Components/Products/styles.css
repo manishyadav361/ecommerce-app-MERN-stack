@@ -1,6 +1,6 @@
 .main-product {
   width: 200px;
-  margin: 10px 20px;
+  margin: 10px 30px;
   cursor: pointer;
 }
 .main-products {
@@ -22,6 +22,8 @@
 }
 .image > img {
   width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .title {
   display: flex;

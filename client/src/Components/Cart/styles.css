@@ -1,0 +1,69 @@
+.cart-item {
+  width: 60%;
+  background-color: rgb(250, 249, 249);
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  height: 180px;
+  box-shadow: 0px 0.5px 5px rgba(143, 143, 143, 0.5);
+}
+.cart-item > .cart-image {
+  width: 200px;
+  height: 180px;
+}
+.cart-image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left;
+}
+.cart-info {
+  flex: 1;
+  height: 80%;
+  margin: auto opx;
+  display: flex;
+  flex-direction: column;
+}
+.title-cart {
+  display: flex;
+  align-items: center;
+  color: rgb(87, 86, 86);
+  text-transform: capitalize;
+  justify-content: space-between;
+}
+.cart-price {
+  margin: 10px 0px;
+  font-weight: 600;
+  color: rgb(54, 54, 54);
+}
+.cart-remove {
+  margin-top: auto;
+  width: 200px;
+}
+.cart-item:hover {
+  opacity: 0.8;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+}
+.cart-quantity {
+  display: flex;
+  align-items: center;
+}
+.cart-quantity > p {
+  margin: 0px 2px;
+}
+.cart-quantity > .MuiSvgIcon-root {
+  color: grey;
+}
+.load {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  margin: auto auto;
+}
+@media screen and (max-width: 768px) {
+  .cart-item {
+    width: 100%;
+  }
+}

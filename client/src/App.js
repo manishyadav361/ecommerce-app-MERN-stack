@@ -11,12 +11,15 @@ import { getAllProducts } from "./Actions/Products";
 import AdminProducts from "./Components/Admin/Products/AdminProducts";
 import ProductInfo from "./Components/Admin/Products/ProductInfo";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
-import Header from "./Components/Admin/Header/Header";
+import Cart from "./Components/Cart/Cart";
+import { getCart } from "./Actions/Cart";
 
 function App() {
   const dispatch = useDispatch();
   const [productId, setProductId] = useState("");
   const [loading, setLoading] = useState(false);
+  // const user = JSON.parse(localStorage.getItem("profile")).result;
+  // const userId = user?.result?._id ? user?.result?._id : user?.result?.googleId;
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -35,7 +38,9 @@ function App() {
               setLoading={setLoading}
             />
           </Route>
-
+          <Route path="/cart" exact>
+            <Cart />
+          </Route>
           <Route path="/auth" exact>
             <Auth />
           </Route>
