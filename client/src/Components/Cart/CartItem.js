@@ -6,7 +6,9 @@ import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox"
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { Button, IconButton } from "@material-ui/core";
 import Loader from "react-loader-spinner";
+import { useHistory } from "react-router";
 function CartItem({ product }) {
+  const history = useHistory();
   const products = useSelector((state) =>
     state.products.filter((item) => product && item._id === product.productId)
   );
@@ -15,7 +17,10 @@ function CartItem({ product }) {
   return (
     <>
       {cartItem ? (
-        <div className="cart-item">
+        <div
+          className="cart-item"
+          onClick={() => history.push(`/product/${product?.productId}`)}
+        >
           <section className="cart-image">
             <img src={cartItem?.imageUrl} alt="" />
           </section>

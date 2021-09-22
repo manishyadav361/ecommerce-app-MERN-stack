@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart } from "../../Actions/Cart";
 import CartItem from "./CartItem";
@@ -17,8 +17,8 @@ function Cart() {
   return (
     <>
       <Navbar />
-      {cart.products ? (
-        <div>
+      {cart?.products ? (
+        <div className="cart">
           {cart?.products?.map((product) => (
             <CartItem product={product} key={product.productId} />
           ))}

@@ -18,11 +18,14 @@ function App() {
   const dispatch = useDispatch();
   const [productId, setProductId] = useState("");
   const [loading, setLoading] = useState(false);
-  // const user = JSON.parse(localStorage.getItem("profile")).result;
-  // const userId = user?.result?._id ? user?.result?._id : user?.result?.googleId;
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const userId = user?.result?._id ? user?.result?._id : user?.result?.googleId;
 
   useEffect(() => {
     dispatch(getAllProducts());
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(getCart(userId));
   }, [dispatch]);
 
   return (

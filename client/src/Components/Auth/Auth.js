@@ -8,6 +8,8 @@ import GoogleLogin from "react-google-login";
 import googleLogo from "../../images/googleLogo.png";
 import FileBase from "react-file-base64";
 import Loader from "react-loader-spinner";
+import { AUTH } from "../../constants/constantTypes";
+
 function Auth() {
   const initialState = {
     firstname: "",
@@ -50,7 +52,7 @@ function Auth() {
     const result = res?.profileObj;
     const token = res?.tokenId;
     try {
-      dispatch({ type: "AUTH", data: { result, token } });
+      dispatch({ type: AUTH, data: { result, token } });
       setLoading(!loading);
 
       history.push("/");

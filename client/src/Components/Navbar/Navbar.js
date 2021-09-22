@@ -4,7 +4,7 @@ import { Avatar, Button, Typography } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import "./styles.css";
 import { useHistory, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import decode from "jwt-decode";
 import MenuIcon from "@material-ui/icons/Menu";
 import CloseIcon from "@material-ui/icons/Close";
@@ -20,11 +20,9 @@ function Navbar() {
   const [toggle, setToggle] = useState(false);
 
   const handleLogout = (e) => {
-    if (user?.result) {
-      dispatch({ type: "LOGOUT" });
-      history.push("/auth");
-      setUser(null);
-    }
+    dispatch({ type: "LOGOUT" });
+    history.push("/auth");
+    setUser(null);
   };
   const location = useLocation();
   useEffect(() => {

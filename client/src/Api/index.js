@@ -33,3 +33,6 @@ export const createCart = (productId, quantity, userId) =>
   API.post("/cart", { productId, quantity, userId });
 
 export const getCart = (userId) => API.get(`/cart/${userId}`);
+
+export const updateCart = (productId, quantity, userId) =>
+  API.patch("/cart/update", { productId, quantity, userId });
