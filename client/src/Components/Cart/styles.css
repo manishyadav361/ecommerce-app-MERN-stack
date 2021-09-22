@@ -71,4 +71,13 @@
   .cart-item {
     width: 100%;
   }
+  .cart {
+    height: 100%;
+  }
+}
+@media screen and (max-width: 240px) {
+  .cart-item {
+    flex-direction: column;
+    height: 100%;
+  }
 }

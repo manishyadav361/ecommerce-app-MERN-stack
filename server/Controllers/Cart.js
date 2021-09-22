@@ -60,3 +60,20 @@ export const updateCart = async (req, res) => {
     console.log(error);
   }
 };
+
+export const removeCartProduct = async (req, res) => {
+  const { userId } = req.body;
+  const { productId } = req.params;
+  try {
+    const removedProduct = await CartModel.findOneAndUpdate(
+      {
+        userId,
+      },
+      { $pull: { products: { productId: productId } } }
+    );
+    res.status(200).json({ productId: productId });
+  } catch (error) {
+    res.status(500).json({ message: "something went wrong." });
+    console.log(error);
+  }
+};

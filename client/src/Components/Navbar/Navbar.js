@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import { Avatar, Button, Typography } from "@material-ui/core";
+import { Avatar, Button, IconButton, Typography } from "@material-ui/core";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import SearchIcon from "@material-ui/icons/Search";
 import "./styles.css";
 import { useHistory, useLocation } from "react-router-dom";
@@ -11,13 +12,14 @@ import CloseIcon from "@material-ui/icons/Close";
 import HomeIcon from "@material-ui/icons/Home";
 import PersonIcon from "@material-ui/icons/Person";
 import StorefrontIcon from "@material-ui/icons/Storefront";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+
 import AssignmentIcon from "@material-ui/icons/Assignment";
 function Navbar() {
   const history = useHistory();
   const dispatch = useDispatch();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const [toggle, setToggle] = useState(false);
+  const cartLength = useSelector((state) => state.cart?.products?.length);
 
   const handleLogout = (e) => {
     dispatch({ type: "LOGOUT" });
@@ -64,12 +66,34 @@ function Navbar() {
           >
             MANIAC'S
           </Typography>
+          <section className="cart-icon-mobile">
+            <Button
+              size="small"
+              color="primary"
+              startIcon={<ShoppingCartIcon />}
+              onClick={() => history.push("/cart")}
+            >
+              <span className="cart-count">{cartLength}</span>
+            </Button>
+          </section>
         </div>
         <div className="nav-center">
           <input type="text" name="" placeholder="Search" />
           <SearchIcon color="primary" />
         </div>
         <div className="nav-right">
+          {user && (
+            <section className="cart-icon">
+              <Button
+                size="small"
+                color="primary"
+                startIcon={<ShoppingCartIcon />}
+                onClick={() => history.push("/cart")}
+              >
+                <span className="cart-count">{cartLength}</span>
+              </Button>
+            </section>
+          )}
           {user && (
             <Avatar
               src={user?.result?.imageUrl}

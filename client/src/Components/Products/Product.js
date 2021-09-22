@@ -10,7 +10,6 @@ function Product({ product, setProductId }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const cart = useSelector((state) => state.cart?.products);
-  console.log(cart);
   const productRoute = () => {
     history.push(`/product/${product._id}`);
   };

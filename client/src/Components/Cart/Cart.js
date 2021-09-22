@@ -12,7 +12,7 @@ function Cart() {
 
   useEffect(() => {
     dispatch(getCart(userId));
-  }, [dispatch]);
+  }, [dispatch, cart]);
 
   return (
     <>

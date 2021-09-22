@@ -6,7 +6,7 @@ import Auth from "./Components//Auth/Auth";
 import Profile from "./Components/Profile/Profile";
 import Admin from "./Components/Admin/Admin";
 import Products from "./Components/Products/Products";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "./Actions/Products";
 import AdminProducts from "./Components/Admin/Products/AdminProducts";
 import ProductInfo from "./Components/Admin/Products/ProductInfo";
@@ -17,7 +17,7 @@ import { getCart } from "./Actions/Cart";
 function App() {
   const dispatch = useDispatch();
   const [productId, setProductId] = useState("");
-  const [loading, setLoading] = useState(false);
+  const cart = useSelector((state) => state.cart);
   const user = JSON.parse(localStorage.getItem("profile"));
   const userId = user?.result?._id ? user?.result?._id : user?.result?.googleId;
 
@@ -34,12 +34,7 @@ function App() {
         <Switch>
           <Route path="/" exact>
             <Navbar />
-            <Products
-              productId={productId}
-              setProductId={setProductId}
-              loading={loading}
-              setLoading={setLoading}
-            />
+            <Products productId={productId} setProductId={setProductId} />
           </Route>
           <Route path="/cart" exact>
             <Cart />
