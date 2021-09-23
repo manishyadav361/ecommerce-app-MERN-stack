@@ -17,9 +17,9 @@ function Product({ product, setProductId }) {
   const userId = user?.result?._id ? user?.result?._id : user?.result?.googleId;
   const handleCart = () => {
     if (!cart) {
-      dispatch(createCart(product?._id, 1, userId));
+      dispatch(createCart(product?._id, 1, userId, product?.price));
     } else {
-      dispatch(updateCart(product?._id, 1, userId));
+      dispatch(updateCart(product?._id, 1, userId, product?.price));
     }
   };
 

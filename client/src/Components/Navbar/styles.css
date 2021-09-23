@@ -69,8 +69,8 @@
 .nav-left {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  /* justify-content: space-between; */
+  /* width: 100%; */
 }
 .navbar > .nav-right {
   display: flex;

@@ -15,20 +15,23 @@ function Cart() {
   }, [dispatch, cart]);
 
   return (
-    <>
+    <div className="cart-section">
       <Navbar />
       {cart?.products ? (
-        <div className="cart">
-          {cart?.products?.map((product) => (
-            <CartItem product={product} key={product.productId} />
-          ))}
+        <div className="cart-main">
+          <div className="cart">
+            {cart?.products?.map((product) => (
+              <CartItem product={product} key={product.productId} />
+            ))}
+          </div>
+          <div className="cart-total"></div>
         </div>
       ) : (
         <div className="loader">
           <Loader type="Oval" color="grey" height={40} width={40} />
         </div>
       )}
-    </>
+    </div>
   );
 }
 

@@ -12,7 +12,7 @@ export const getCart = async (req, res) => {
 };
 
 export const createCart = async (req, res) => {
-  const { productId, quantity, userId } = req.body;
+  const { productId, quantity, userId, price } = req.body;
   // const userId = req?.userId;
   if (!userId)
     return res.status(404).json({ message: "Please log in to continue." });
@@ -24,6 +24,7 @@ export const createCart = async (req, res) => {
       products: {
         quantity,
         productId,
+        total,
       },
     });
     res.status(201).json(cart);
@@ -35,7 +36,7 @@ export const createCart = async (req, res) => {
 
 // Update cart
 export const updateCart = async (req, res) => {
-  const { productId, quantity, userId } = req.body;
+  const { productId, quantity, userId, total } = req.body;
   // const userId = req.userId;
   const existingItem = await CartModel.findOne({
     userId,
@@ -48,11 +49,11 @@ export const updateCart = async (req, res) => {
       const newItem = await CartModel.findOneAndUpdate(
         { userId },
         {
-          $push: { products: { productId, quantity } },
+          $push: { products: { productId, quantity, total } },
         }
       );
 
-      res.status(200).json({ productId, quantity });
+      res.status(200).json({ productId, quantity, total });
     } else {
       return res.status(404).send("Item not present in the cart.");
     }
@@ -72,6 +73,37 @@ export const removeCartProduct = async (req, res) => {
       { $pull: { products: { productId: productId } } }
     );
     res.status(200).json({ productId: productId });
+  } catch (error) {
+    res.status(500).json({ message: "something went wrong." });
+    console.log(error);
+  }
+};
+
+export const incrementQuantity = async (req, res) => {
+  const { userId, price } = req.body;
+  const { productId } = req.params;
+
+  try {
+    const data = await CartModel.findOneAndUpdate(
+      { userId, products: { $elemMatch: { productId: productId } } },
+      { $inc: { "products.$.quantity": 1, "products.$.total": price } }
+    );
+    res.status(200).json({ productId: productId, total: price });
+  } catch (error) {
+    res.status(500).json({ message: "something went wrong." });
+    console.log(error);
+  }
+};
+
+export const decrementQuantity = async (req, res) => {
+  const { userId, price } = req.body;
+  const { productId } = req.params;
+  try {
+    const data = await CartModel.findOneAndUpdate(
+      { userId, products: { $elemMatch: { productId: productId } } },
+      { $inc: { "products.$.quantity": -1, "products.$.total": -price } }
+    );
+    res.status(200).json({ productId: productId, total: price });
   } catch (error) {
     res.status(500).json({ message: "something went wrong." });
     console.log(error);

@@ -29,13 +29,19 @@ export const updateItem = (productInfo, id) =>
 
 export const deleteItem = (id) => API.delete(`/products/${id}`); // DELETE REQUEST FOR DELETING A PRODUCT
 
-export const createCart = (productId, quantity, userId) =>
-  API.post("/cart", { productId, quantity, userId });
+export const createCart = (productId, quantity, userId, total) =>
+  API.post("/cart", { productId, quantity, userId, total });
 
 export const getCart = (userId) => API.get(`/cart/${userId}`);
 
-export const updateCart = (productId, quantity, userId) =>
-  API.patch("/cart/update", { productId, quantity, userId });
+export const updateCart = (productId, quantity, userId, total) =>
+  API.patch("/cart/update", { productId, quantity, userId, total });
 
 export const removeCartProducts = (productId, userId) =>
   API.patch(`/cart/update/${productId}`, { userId });
+
+export const updateQuantity = (productId, userId, price) =>
+  API.patch(`/cart/update/increment/${productId}`, { userId, price });
+
+export const decrementQuantity = (productId, userId, price) =>
+  API.patch(`/cart/update/decrement/${productId}`, { userId, price });

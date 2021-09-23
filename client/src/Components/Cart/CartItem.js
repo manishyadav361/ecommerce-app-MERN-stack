@@ -7,7 +7,11 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import { Button, IconButton } from "@material-ui/core";
 import Loader from "react-loader-spinner";
 import { useHistory } from "react-router";
-import { removeCartProduct } from "../../Actions/Cart";
+import {
+  decrementQuantity,
+  removeCartProduct,
+  updateQuantity,
+} from "../../Actions/Cart";
 
 function CartItem({ product }) {
   const history = useHistory();
@@ -21,6 +25,14 @@ function CartItem({ product }) {
 
   const removeCartItem = () => {
     dispatch(removeCartProduct(product?.productId, userId));
+  };
+  const increment = () => {
+    dispatch(updateQuantity(product?.productId, userId, cartItem?.price));
+  };
+  const decrement = () => {
+    if (product.quantity > 1) {
+      dispatch(decrementQuantity(product?.productId, userId, cartItem?.price));
+    }
   };
 
   return (
@@ -39,12 +51,25 @@ function CartItem({ product }) {
               <FavoriteBorderIcon color="secondary" />
             </section>
             <section className="cart-price">
-              ₹ <span>{cartItem?.price}</span>
+              ₹ <span>{product?.total}</span>
             </section>
             <section className="cart-quantity">
-              <IndeterminateCheckBoxIcon />
+              <Button
+                color="primary"
+                variant="text"
+                size="small"
+                disabled={product.quantity === 1 && true}
+                onClick={decrement}
+                startIcon={<IndeterminateCheckBoxIcon />}
+              ></Button>
               <p>{product?.quantity}</p>
-              <AddBoxIcon />
+              <Button
+                color="primary"
+                variant="text"
+                size="small"
+                onClick={increment}
+                startIcon={<AddBoxIcon />}
+              ></Button>
             </section>
             <section className="cart-remove">
               <Button
