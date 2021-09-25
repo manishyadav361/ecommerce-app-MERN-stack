@@ -9,7 +9,7 @@ import { updateCart } from "../../Actions/Cart";
 function Product({ product, setProductId }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  const cart = useSelector((state) => state.cart?.products);
+  const cart = useSelector((state) => state.cart?.cart);
   const productRoute = () => {
     history.push(`/product/${product._id}`);
   };

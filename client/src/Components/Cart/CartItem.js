@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.css";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import IndeterminateCheckBoxIcon from "@material-ui/icons/IndeterminateCheckBox";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import { Button, IconButton } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import Loader from "react-loader-spinner";
 import { useHistory } from "react-router";
 import {
@@ -12,6 +12,7 @@ import {
   removeCartProduct,
   updateQuantity,
 } from "../../Actions/Cart";
+import { getCart } from "../../Actions/Cart";
 
 function CartItem({ product }) {
   const history = useHistory();
@@ -23,7 +24,7 @@ function CartItem({ product }) {
   const userId = user?.result?._id ? user?.result?._id : user?.result?.googleId;
   const cartItem = products[0];
 
-  const removeCartItem = () => {
+  const removeCartItem = (e) => {
     dispatch(removeCartProduct(product?.productId, userId));
   };
   const increment = () => {
@@ -38,7 +39,7 @@ function CartItem({ product }) {
   return (
     <>
       {cartItem ? (
-        <div className="cart-item">
+        <div className="cart-item" key={product.productId}>
           <section
             className="cart-image"
             onClick={() => history.push(`/product/${product?.productId}`)}
@@ -86,7 +87,7 @@ function CartItem({ product }) {
       ) : (
         <div className="cart-item">
           <div className="load">
-            <Loader type="Oval" color="grey" height={40} width={40} />
+            <Loader type="Oval" color="grey" height={20} width={20} />
           </div>
         </div>
       )}

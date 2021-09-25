@@ -13,18 +13,16 @@ import ProductInfo from "./Components/Admin/Products/ProductInfo";
 import ProductDetails from "./Components/ProductDetails/ProductDetails";
 import Cart from "./Components/Cart/Cart";
 import { getCart } from "./Actions/Cart";
+import Checkout from "./Components/Checkout/Checkout";
 
 function App() {
   const dispatch = useDispatch();
   const [productId, setProductId] = useState("");
-  const cart = useSelector((state) => state.cart);
   const user = JSON.parse(localStorage.getItem("profile"));
   const userId = user?.result?._id ? user?.result?._id : user?.result?.googleId;
 
   useEffect(() => {
     dispatch(getAllProducts());
-  }, [dispatch]);
-  useEffect(() => {
     dispatch(getCart(userId));
   }, [dispatch]);
 
@@ -38,6 +36,9 @@ function App() {
           </Route>
           <Route path="/cart" exact>
             <Cart />
+          </Route>
+          <Route path="/checkout" exact>
+            <Checkout />
           </Route>
           <Route path="/auth" exact>
             <Auth />

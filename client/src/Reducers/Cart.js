@@ -7,36 +7,62 @@ import {
   UPDATE_QUANTITY,
 } from "../constants/constantTypes";
 
-const reducer = (cart = [], action) => {
+const reducer = (state = { cart: null, total: 0 }, action) => {
   switch (action.type) {
-    case CREATE_CART:
-      return action.payload;
     case GET_CART:
-      return action.payload;
+      return {
+        ...state,
+        cart: action.payload,
+      };
+    case CREATE_CART:
+      return {
+        ...state,
+        cart: action.payload,
+      };
     case UPDATE_CART:
-      return cart?.products.push(action.payload);
-    case REMOVE_CART_PRODUCT:
-      return cart?.products?.filter(
-        (product) => product?.productId === action.payload?.productId
-      );
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          products: [...state.cart.products, action.payload],
+        },
+      };
     case UPDATE_QUANTITY:
-      return cart?.products.map((product) => {
+      state.cart.products.map((product) => {
         if (product.productId === action.payload.productId) {
           product.quantity += 1;
-          product.price += action.payload.total;
+          product.total += action.payload.total;
         }
       });
+      return {
+        ...state,
+        cart: { ...state.cart, products: [...state.cart.products] },
+      };
     case DECREMENT_QUANTITY:
-      return cart?.products.map((product) => {
+      state.cart.products.map((product) => {
         if (product.productId === action.payload.productId) {
           product.quantity -= 1;
-          product.price -= action.payload.total;
+          product.total -= action.payload.total;
         }
       });
+      return {
+        ...state,
+        cart: { ...state.cart, products: [...state.cart.products] },
+      };
 
+    case REMOVE_CART_PRODUCT:
+      const removeProduct = state.cart.products.filter(
+        (product) => product.productId !== action.payload.productId
+      );
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          products: removeProduct,
+        },
+      };
     default:
-      return cart;
+      return state;
   }
 };
-
 export default reducer;

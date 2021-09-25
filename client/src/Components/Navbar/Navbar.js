@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Avatar, Button, IconButton, Typography } from "@material-ui/core";
+import { Avatar, Button, Typography } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import SearchIcon from "@material-ui/icons/Search";
 import "./styles.css";
@@ -14,19 +14,23 @@ import PersonIcon from "@material-ui/icons/Person";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import { getCart } from "../../Actions/Cart";
+
 function Navbar() {
   const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const [toggle, setToggle] = useState(false);
-  const cartLength = useSelector((state) => state.cart?.products?.length);
+  const cart = useSelector((state) => state?.cart);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const userId = user?.result?._id ? user?.result?._id : user?.result?.googleId;
 
   const handleLogout = (e) => {
     dispatch({ type: "LOGOUT" });
     history.push("/auth");
     setUser(null);
   };
-  const location = useLocation();
+  // useEffect(() => dispatch(getCart(userId)), [dispatch]);
   useEffect(() => {
     const token = user?.token;
     if (token) {
@@ -73,7 +77,7 @@ function Navbar() {
               startIcon={<ShoppingCartIcon />}
               onClick={() => history.push("/cart")}
             >
-              <span className="cart-count">{cartLength}</span>
+              <span className="cart-count">{cart?.cart?.products?.length}</span>
             </Button>
           </section>
         </div>
@@ -90,7 +94,9 @@ function Navbar() {
                 startIcon={<ShoppingCartIcon />}
                 onClick={() => history.push("/cart")}
               >
-                <span className="cart-count">{cartLength}</span>
+                <span className="cart-count">
+                  {cart?.cart?.products?.length}
+                </span>
               </Button>
             </section>
           )}
